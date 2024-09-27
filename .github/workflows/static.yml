@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор услуг</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .tab {
+            flex-grow: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        .tab:hover {
+            background-color: #ccc;
+        }
+        .tab.active {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+        .tab-content {
+            display: none;
+            text-align: center;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        label {
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Калькулятор услуг</h1>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="tab1">Стена 10 см</div>
+            <div class="tab" data-tab="tab2">Стена 20 см</div>
+            <div class="tab" data-tab="tab3">Стена 30 см</div>
+            <div class="tab" data-tab="tab4">Стена 40 см</div>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+            <h2>10 см</h2>
+            <label for="input1">Введите значение(Кол-во кв.м.):</label>
+            <input type="number" id="input1" placeholder="Введите значение">
+            <button onclick="calculate(1250, 'input1', 'result1')">Рассчитать</button>
+            <div class="result" id="result1"></div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <h2>20 см</h2>
+            <label for="input2">Введите значение:</label>
+            <input type="number" id="input2" placeholder="Введите значение">
+            <button onclick="calculate(1350, 'input2', 'result2')">Рассчитать</button>
+            <div class="result" id="result2"></div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <h2>30 см</h2>
+            <label for="input3">Введите значение:</label>
+            <input type="number" id="input3" placeholder="Введите значение">
+            <button onclick="calculate(1500, 'input3', 'result3')">Рассчитать</button>
+            <div class="result" id="result3"></div>
+        </div>
+
+        <div id="tab4" class="tab-content">
+            <h2>40 см</h2>
+            <label for="input4">Введите значение:</label>
+            <input type="number" id="input4" placeholder="Введите значение">
+            <button onclick="calculate(1700, 'input4', 'result4')">Рассчитать</button>
+            <div class="result" id="result4"></div>
+        </div>
+    </div>
+
+    <script>
+        // Функция для переключения вкладок
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+
+                this.classList.add('active');
+                document.getElementById(this.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+
+        // Функция для расчета стоимости
+        function calculate(multiplier, inputId, resultId) {
+            const value = document.getElementById(inputId).value;
+            const result = value * multiplier;
+            if (value) {
+                document.getElementById(resultId).innerText = `Стоимость: ${result.toFixed(2)} руб.`;
+            } else {
+                document.getElementById(resultId).innerText = `Введите корректное значение!`;
+            }
+        }
+    </script>
+
+</body>
+</html>
